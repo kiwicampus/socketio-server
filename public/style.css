@@ -1,0 +1,12 @@
+#toast-container {
+  display: block;
+  position: fixed;
+  z-index: 10000;
+  top: 15%;
+  left: 15% !important;
+
+}
+
+.toast {
+  background-color: darkred !important;
+}

@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Kiwi Driver Local</title>
+
+  <link href="style.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="hideAddressBar.js"></script>
+
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection" />
+</head <body>
+<div id="container">
+  <nav id="connection-status" class="indigo">
+    <div class="nav-wrapper">
+      <ul id="nav-mobile" class="left" style="padding-left: 0.5em;">
+        <li><button id="toggle-lid" class="btn">Lid</button></li>
+        <li><button id="toggle-record" class="btn">Rec</button></li>
+      </ul>
+      <ul id="nav-mobile" class="right" style="padding-right: 0.2em;">
+        <li><button id="toggle-enable-driving" class="btn">Drive</button></li>
+        <li><button id="toggle-autonomous" class="btn">Auto</button></li>
+        <li><button id="toogle-manual" class="btn">Local</button></li>
+        <li><button id="load-settings" class="btn">Sets</button></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<img id="video" style="z-index: -1; pointer-events: none; position: absolute; width: 100%; bottom: 0" />
+
+<div id="left" style="position: absolute; width: 45%; height: 67%; bottom: 0%; left: 0"></div>
+<div id="center-spaceleft-title" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 72%; left: 58%">
+  <font color="white">USB left</font>
+</div>
+<div id="center-spaceleft" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 62%; left: 57.5%">
+  <div id="spaceleft-viewer" class="btn" style ="text-align: left; display: inline-block;
+padding: 4px 6px; /* Padding por defecto */
+font-size: 14px;  /* Tamaño fuente por defecto */
+line-height: 22px; /* Tamaño de linea */
+text-align: center;
+vertical-align: middle;
+border: 1px solid #cccccc;
+-webkit-border-radius: 4px;"></div>
+</div>
+<div id="center-spaceleft-title" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 20%; height: 10%; bottom: 72%; left: 40%">
+  <font color="white">Images Today</font>
+</div>
+<div id="center-numberimages" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 62%; left: 45%">
+  <button id="numberimages-viewer" class="btn" style="background-color: deepskyblue; text-align: left; display: inline-block;
+padding: 4px 6px; /* Padding por defecto */
+font-size: 14px;  /* Tamaño fuente por defecto */
+line-height: 20px; /* Tamaño de linea */
+text-align: center;
+vertical-align: middle;
+border: 1px solid #cccccc;
+-webkit-border-radius: 4px;"></button>
+</div>
+<div id="center-throttle" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 40%; bottom: 20%; left: 57.5%">
+  <button id="increment-throttle" class="btn">+</button>
+  <button id="throttle-viewer" class="btn"></button>
+  <button id="decrement-throttle" class="btn">-</button>
+</div>
+<div id="center-steering" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 40%; bottom: 20%; left: 45%">
+  <button id="increment-steering" class="btn" style="background-color: deepskyblue">+</button>
+  <button id="steering-viewer" class="btn" style="background-color: deepskyblue"></button>
+  <button id="decrement-steering" class="btn" style="background-color: deepskyblue">-</button>
+</div>
+<div id="center-steering" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 27%; height: 17%; bottom: 2%; left: 43%">
+  <button id="bot-steering" class="btn" style="background-color: lightgray; color:black;">+</button>
+  <!-- <button id="decrement-steering" class="btn" style="background-color: lightgray">-</button> -->
+</div>
+<div id="right" style="position: absolute; width: 30%; height: 67%; bottom: 0%; right: 0"></div>
+
+
+<div id="settings-modal" class="modal">
+  <div class="modal-content">
+    <h4>Settings</h4>
+    <div class="row">
+      <form id="settings-form" class="col s12">
+        <div class="row">
+          <div class="input-field col s4">
+            <select id="left-camera" type="text" class="validate">
+              <option value="0">Left</option>
+              <option value="1">Center</option>
+              <option value="2">Right</option>
+            </select>
+            <label id="left-camera-label">Left</label>
+          </div>
+          <div class="input-field col s4">
+            <select id="center-camera" type="text" class="validate active">
+              <option value="0">Left</option>
+              <option value="1">Center</option>
+              <option value="2">Right</option>
+            </select>
+            <label id="center-camera-label">Center</label>
+          </div>
+          <div class="input-field col s4">
+            <select id="right-camera" type="text" class="validate">
+              <option value="0">Left</option>
+              <option value="1">Center</option>
+              <option value="2">Right</option>
+            </select>
+            <label id="right-camera-label">Right</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s9">
+            Send Camera
+          </div>
+          <div class="switch col s3">
+            <label>
+                Off
+                <input id="send-camera" type="checkbox">
+                <span class="lever"></span>
+                On
+              </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s9">
+            Object Detection
+          </div>
+          <div class="switch col s3">
+            <label>
+                Off
+                <input id="call-api" type="checkbox">
+                <span class="lever"></span>
+                On
+              </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s9">
+            Corner Detection
+          </div>
+          <div class="switch col s3">
+            <label>
+                Off
+                <input id="call-corner-net" type="checkbox">
+                <span class="lever"></span>
+                On
+              </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s3">
+            Corner Detection Threshold
+          </div>
+          <div class="input-field switch col s9">
+            <input id="corner-threshold" type="range" min="0" max="1" step="0.05" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s3">
+            Emit interval (ms)
+          </div>
+          <div class="input-field switch col s9">
+            <input id="emit-interval" type="range" min="10" max="500" step="5" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s3">
+            Steering weight
+          </div>
+          <div class="input-field switch col s9">
+            <input id="steering" type="range" min="0.1" max="2" step="0.025" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s3">
+            Throttle weight
+          </div>
+          <div class="input-field switch col s9">
+            <input id="throttle" type="range" min="0.1" max="1" step="0.025" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s3">
+            Power weight
+          </div>
+          <div class="input-field switch col s9">
+            <input id="power" type="range" min="0" max="3" step="0.2" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="switch col s3">
+            Stick radius
+          </div>
+          <div class="input-field switch col s9">
+            <input id="stick-radius" type="range" min="50" max="1000" step="10" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a onclick="submitSettings()" class="modal-action modal-close waves-effect waves-green btn-flat">Done</a>
+  </div>
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://rawgit.com/neogeek/gamepad.js/master/gamepad.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.6.7/nipplejs.min.js"></script>
+
+<script src="/index.js"></script>
+<!-- <script src="/disableLongPress.js"></script> -->
+</body>
+
+</html>
