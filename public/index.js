@@ -33,6 +33,7 @@ var rightNipple = {};
 var recording = false;
 var lid_opened = false;
 var bot_recording = false;
+var record_mode = "c2c";
 var joystick_visible = true;
 var autonomous = false;
 var manualControl = false;
@@ -127,7 +128,7 @@ $(function() {
   });
 
   gamepad.on('release', 'button_4', (e) => {
-    toggleRecord();
+    toggleRecord("c2c");
   });
 
   gamepad.on('hold', 'stick_axis_left', (e) => {
@@ -181,7 +182,10 @@ $(function() {
   });
 
   $("#toggle-record").on('touchstart', function() {
-    toggleRecord();
+    toggleRecord("c2c");
+  });
+  $("#toggle-record2").on('touchstart', function() {
+    toggleRecord("crossing");
   });
 
   $("#load-settings").on('touchstart', function() {
@@ -442,8 +446,10 @@ $(function() {
 
       if (msgRecording != bot_recording) {
         bot_recording = msgRecording;
-        var color = bot_recording ? "rgb(0,255,0)" : "rgb(38, 166, 154)";
-        $("#toggle-record").css("background-color", color);
+        var color_c2c = (bot_recording && record_mode == "c2c" ) ? "rgb(0,255,0)" : "rgb(38, 166, 154)";
+        var color_crossing = (bot_recording && record_mode == "crossing" ) ? "rgb(0,255,0)" : "rgb(38, 166, 154)";
+        $("#toggle-record").css("background-color", color_c2c);
+        $("#toggle-record2").css("background-color", color_crossing);
       }
     }
 
@@ -480,9 +486,11 @@ function toggleOpenLid() {
   $("#toggle-lid").css("background-color", color);
 }
 
-function toggleRecord() {
+function toggleRecord(record_mod) {
+  record_mode = record_mod;
   recording = !recording;
   data.recording = recording;
+  data.record_mode = record_mod;
 }
 
 

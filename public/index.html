@@ -13,20 +13,23 @@
   <script src="hideAddressBar.js"></script>
 
   <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+    media="screen,projection" />
 </head <body>
 <div id="container">
   <nav id="connection-status" class="indigo">
     <div class="nav-wrapper">
-      <ul id="nav-mobile" class="left" style="padding-left: 0.5em;">
+      <ul id="nav-mobile" class="left" style="padding-left: 0.2em;">
         <li><button id="toggle-lid" class="btn">Lid</button></li>
-        <li><button id="toggle-record" class="btn">Rec</button></li>
+        <li><button id="toggle-record" class="btn">Rec 2C2</button></li>
+        <li><button id="toggle-record2" class="btn">Rec Cross</button></li>
       </ul>
       <ul id="nav-mobile" class="right" style="padding-right: 0.2em;">
         <li><button id="toggle-enable-driving" class="btn">Drive</button></li>
         <li><button id="toggle-autonomous" class="btn">Auto</button></li>
         <li><button id="toogle-manual" class="btn">Local</button></li>
-        <li><button id="load-settings" class="btn">Sets</button></li>
+        <li style="width:30px;height:30px;"><button id="load-settings" class="btn">Sets</button></li>
       </ul>
     </div>
   </nav>
@@ -35,11 +38,13 @@
 <img id="video" style="z-index: -1; pointer-events: none; position: absolute; width: 100%; bottom: 0" />
 
 <div id="left" style="position: absolute; width: 45%; height: 67%; bottom: 0%; left: 0"></div>
-<div id="center-spaceleft-title" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 72%; left: 58%">
+<div id="center-spaceleft-title"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 72%; left: 58%">
   <font color="white">USB left</font>
 </div>
-<div id="center-spaceleft" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 62%; left: 57.5%">
-  <div id="spaceleft-viewer" class="btn" style ="text-align: left; display: inline-block;
+<div id="center-spaceleft"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 62%; left: 57.5%">
+  <div id="spaceleft-viewer" class="btn" style="text-align: left; display: inline-block;
 padding: 4px 6px; /* Padding por defecto */
 font-size: 14px;  /* Tamaño fuente por defecto */
 line-height: 22px; /* Tamaño de linea */
@@ -48,10 +53,12 @@ vertical-align: middle;
 border: 1px solid #cccccc;
 -webkit-border-radius: 4px;"></div>
 </div>
-<div id="center-spaceleft-title" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 20%; height: 10%; bottom: 72%; left: 40%">
+<div id="center-spaceleft-title"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 20%; height: 10%; bottom: 72%; left: 40%">
   <font color="white">Images Today</font>
 </div>
-<div id="center-numberimages" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 62%; left: 45%">
+<div id="center-numberimages"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 10%; bottom: 62%; left: 45%">
   <button id="numberimages-viewer" class="btn" style="background-color: deepskyblue; text-align: left; display: inline-block;
 padding: 4px 6px; /* Padding por defecto */
 font-size: 14px;  /* Tamaño fuente por defecto */
@@ -61,17 +68,20 @@ vertical-align: middle;
 border: 1px solid #cccccc;
 -webkit-border-radius: 4px;"></button>
 </div>
-<div id="center-throttle" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 40%; bottom: 20%; left: 57.5%">
+<div id="center-throttle"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 40%; bottom: 20%; left: 57.5%">
   <button id="increment-throttle" class="btn">+</button>
   <button id="throttle-viewer" class="btn"></button>
   <button id="decrement-throttle" class="btn">-</button>
 </div>
-<div id="center-steering" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 40%; bottom: 20%; left: 45%">
+<div id="center-steering"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 10%; height: 40%; bottom: 20%; left: 45%">
   <button id="increment-steering" class="btn" style="background-color: deepskyblue">+</button>
   <button id="steering-viewer" class="btn" style="background-color: deepskyblue"></button>
   <button id="decrement-steering" class="btn" style="background-color: deepskyblue">-</button>
 </div>
-<div id="center-steering" style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 27%; height: 17%; bottom: 2%; left: 43%">
+<div id="center-steering"
+  style="display:flex; flex-direction: column; justify-content: space-around; position: absolute; width: 27%; height: 17%; bottom: 2%; left: 43%">
   <button id="bot-steering" class="btn" style="background-color: lightgray; color:black;">+</button>
   <!-- <button id="decrement-steering" class="btn" style="background-color: lightgray">-</button> -->
 </div>
@@ -115,11 +125,11 @@ border: 1px solid #cccccc;
           </div>
           <div class="switch col s3">
             <label>
-                Off
-                <input id="send-camera" type="checkbox">
-                <span class="lever"></span>
-                On
-              </label>
+              Off
+              <input id="send-camera" type="checkbox">
+              <span class="lever"></span>
+              On
+            </label>
           </div>
         </div>
         <div class="row">
@@ -128,11 +138,11 @@ border: 1px solid #cccccc;
           </div>
           <div class="switch col s3">
             <label>
-                Off
-                <input id="call-api" type="checkbox">
-                <span class="lever"></span>
-                On
-              </label>
+              Off
+              <input id="call-api" type="checkbox">
+              <span class="lever"></span>
+              On
+            </label>
           </div>
         </div>
         <div class="row">
@@ -141,11 +151,11 @@ border: 1px solid #cccccc;
           </div>
           <div class="switch col s3">
             <label>
-                Off
-                <input id="call-corner-net" type="checkbox">
-                <span class="lever"></span>
-                On
-              </label>
+              Off
+              <input id="call-corner-net" type="checkbox">
+              <span class="lever"></span>
+              On
+            </label>
           </div>
         </div>
         <div class="row">
@@ -211,7 +221,8 @@ border: 1px solid #cccccc;
 
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.6.7/nipplejs.min.js"></script>
 
 <script src="/index.js"></script>
