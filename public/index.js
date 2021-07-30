@@ -103,8 +103,16 @@ $(function() {
   ///////////////////////
   gamepad = new Gamepad();
 
+  //////////////////////////////////////////////
+  ///// Button mappings in Playstation controller
+  ///// button_1 -> X
+  ///// button_2 -> O
+  ///// button_3 -> []
+  ///// button_4 -> /\
+  //////////////////////////////////////////////
+
   gamepad.on('connect', function(e) {
-    console.log(`controller connected!`);
+    console.log(`controller connected!`, gamepad);
   });
 
   gamepad.on('press', 'button_1', (e) => {
@@ -113,22 +121,57 @@ $(function() {
 
   gamepad.on('release', 'button_1', (e) => {
     set_throttle(data, settings, 0.0);
+    // enableDriving();
   });
 
-  gamepad.on('press', 'button_2', (e) => {
-    set_throttle(data, settings, -1.0);
+  gamepad.on('release', 'start', (e) => {
+    enableDriving();
+    // console.log("start");
+  });
+  // gamepad.on('release', 'select', (e) => {
+  //   console.log("select");
+  // });
+
+  gamepad.on('release', 'stick_button_right', (e) => {
+    joystick_visible = !joystick_visible;
+    onResize();
+  });
+  gamepad.on('release', 'stick_button_left', (e) => {
+    joystick_visible = !joystick_visible;
+    onResize();
   });
 
+  // Left arrows
+  // gamepad.on('release', 'd_pad_down', (e) => {
+  //   console.log("d_pad_down");
+  // });
+  // gamepad.on('release', 'd_pad_up', (e) => {
+  //   console.log("d_pad_up");
+  // });
+  // gamepad.on('release', 'd_pad_left', (e) => {
+  //   console.log("d_pad_left");
+  // });
+  // gamepad.on('release', 'd_pad_right', (e) => {
+  //   console.log("d_pad_right");
+  // });
+  
+  // gamepad.on('press', 'button_2', (e) => {
+  //   set_throttle(data, settings, -1.0);
+  //   console.log("button_2");
+  // });
+  
   gamepad.on('release', 'button_2', (e) => {
-    set_throttle(data, settings, 0.0);
+    toggleRecord("crossing");
   });
-
+  
   gamepad.on('release', 'button_3', (e) => {
     toggleOpenLid();
+    // console.log("button_3");
   });
-
+  
   gamepad.on('release', 'button_4', (e) => {
     toggleRecord("c2c");
+    // console.log("button_4");
   });
 
   gamepad.on('hold', 'stick_axis_left', (e) => {
@@ -149,6 +192,7 @@ $(function() {
 
   gamepad.on('hold', 'shoulder_bottom_left', (e) => {
     set_throttle(data, settings, -e.value);
+    // console.log(e.value);
   });
 
   gamepad.on('release', 'shoulder_bottom_left', (e) => {
@@ -164,8 +208,13 @@ $(function() {
   });
 
   gamepad.on('release', 'shoulder_top_right', (e) => {
-    joystick_visible = !joystick_visible;
-    onResize();
+    settings.throttle = Math.min(settings.throttle + 0.025, 1.5)
+    $("#throttle-viewer").html(settings.throttle.toFixed(2));
+  });
+  gamepad.on('release', 'shoulder_top_left', (e) => {
+    settings.throttle = Math.max(settings.throttle - 0.025, 0.0)
+    $("#throttle-viewer").html(settings.throttle.toFixed(2));
+    
   });
 
 
@@ -233,11 +282,7 @@ $(function() {
   });
 
   $("#toggle-enable-driving").on('touchstart', function() {
-    enable_driving = botArmed != "True";
-
-    setTimeout(() => {
-      enable_driving = false;
-    }, 200);
+    enableDriving();
   });
 
   $("#select-network-branch").on('touchstart', function() {
@@ -484,6 +529,14 @@ function toggleOpenLid() {
   data.lid_opened = lid_opened;
   var color = lid_opened ? "rgb(0,255,0)" : "rgb(38, 166, 154)";
   $("#toggle-lid").css("background-color", color);
+}
+
+function enableDriving(){
+  enable_driving = botArmed != "True";
+
+  setTimeout(() => {
+    enable_driving = false;
+  }, 200);
 }
 
 function toggleRecord(record_mod) {
