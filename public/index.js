@@ -1,8 +1,8 @@
 var settings = {
   emit_on_callback: false,
   emit_interval: 50,
-  steering_angle: 1.0,
-  throttle: 0.5,
+  steering_angle: 1.5,
+  throttle: 0.8,
   stickRadius: 300.0,
   power: 1.5,
   send_camera: false,
@@ -142,12 +142,14 @@ $(function() {
   });
 
   // Left arrows
-  // gamepad.on('release', 'd_pad_down', (e) => {
-  //   console.log("d_pad_down");
-  // });
-  // gamepad.on('release', 'd_pad_up', (e) => {
-  //   console.log("d_pad_up");
-  // });
+  gamepad.on('release', 'd_pad_down', (e) => {
+    settings.steering_angle = Math.min(settings.steering_angle - 0.025, 2.0)
+    $("#steering-viewer").html(settings.steering_angle.toFixed(2));
+  });
+  gamepad.on('release', 'd_pad_up', (e) => {
+    settings.steering_angle = Math.min(settings.steering_angle + 0.025, 2.0)
+    $("#steering-viewer").html(settings.steering_angle.toFixed(2));
+  });
   // gamepad.on('release', 'd_pad_left', (e) => {
   //   console.log("d_pad_left");
   // });
