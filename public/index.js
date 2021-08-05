@@ -60,7 +60,7 @@ function set_steering_angle(new_steering_angle, data) {
 }
 
 function set_throttle(data, settings, new_throttle) {
-  data.throttle = settings.throttle * new_throttle;
+  data.throttle = settings.throttle * new_throttle/1.5; // normalize since max nipples is 1.5
 }
 
 function onResize() {
@@ -191,18 +191,23 @@ $(function() {
   });
 
   gamepad.on('hold', 'shoulder_bottom_left', (e) => {
-    set_throttle(data, settings, -e.value);
-    // console.log(e.value);
+    // for some reason in mobile when you go out from the app
+    // and return, the gamepad is stuck in a value of -0.5
+    if (e.value != 0.5) {
+      set_throttle(data, settings, -e.value);
+    }
   });
-
   gamepad.on('release', 'shoulder_bottom_left', (e) => {
-    data.throttle = 0.0;
-  });
-
+      data.throttle = 0.0;
+    });
+    
   gamepad.on('hold', 'shoulder_bottom_right', (e) => {
-    set_throttle(data, settings, e.value);
+    // for some reason in mobile when you go out from the app
+    // and return, the gamepad is stuck in a value of 0.5
+    if (e.value != 0.5) {
+      set_throttle(data, settings, e.value);
+    }
   });
-
   gamepad.on('release', 'shoulder_bottom_right', (e) => {
     data.throttle = 0.0;
   });
