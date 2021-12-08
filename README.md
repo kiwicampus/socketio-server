@@ -15,6 +15,18 @@ Number `1` and `2` are pretty simple since its job is just to relay messages. Th
 * node
 * npm
 
+### Installing node and npm
+The easiest way is to use `nvm` (node version manager)
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+```
+
+Then simply install the node version you want. For our case the latest (v16.0.0) works
+```
+nvm install 16.0.0
+```
+ 
 ## Dependencies
 ```bash
 npm install
